@@ -1,5 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
+using SoftUni_Exam.Data;
+using Microsoft.EntityFrameworkCore;
 
+var builder = WebApplication.CreateBuilder(args);
+string? connectionString = builder.Configuration.GetConnectionString("DevConnection");
+builder.Services.AddDbContext<ImpulsDbContext>( opt =>
+{
+    opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

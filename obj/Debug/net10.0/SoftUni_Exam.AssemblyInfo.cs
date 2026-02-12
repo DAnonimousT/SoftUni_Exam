@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SoftUni_Exam")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+949936b1991eefaacb9019317cbd5681bdea3532")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6027512ef61b9e7f2fafa0e8081713a5394f85ce")]
 [assembly: System.Reflection.AssemblyProductAttribute("SoftUni_Exam")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SoftUni_Exam")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
