@@ -1,4 +1,4 @@
-using SoftUni_Exam.Models;
+using SoftUni_Exam.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 

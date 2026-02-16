@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SoftUni_Exam.Models
+namespace SoftUni_Exam.Data.Models
 {
     public class News
     {
