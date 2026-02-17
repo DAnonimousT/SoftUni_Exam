@@ -1,5 +1,6 @@
 namespace SoftUni_Exam.Controllers
 {
+    using System.Diagnostics.Contracts;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using SoftUni_Exam.Data;
@@ -148,7 +149,59 @@ namespace SoftUni_Exam.Controllers
 
                 return View(editModel);
             }
+        }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
 
+            News? news = dbContext.News.FirstOrDefault(n => n.Id == id);
+
+            if (news == null)
+            {
+                return NotFound();
+            }
+            DeleteNewsInputModel deleteModel = new DeleteNewsInputModel
+            {
+                Id = news.Id,
+                Title = news.Title,
+                Author = news.Author
+            };
+            return View(deleteModel);
+        }
+        [HttpPost]
+        public IActionResult Delete(int id, DeleteNewsInputModel deletedModel)
+        {
+            
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
+
+            News? news = dbContext.News.FirstOrDefault(n => n.Id == id);
+
+            if (news == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                dbContext.News.Remove(news);
+                dbContext.SaveChanges();
+
+                return RedirectToAction(nameof(All));
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                ModelState.AddModelError(string.Empty, "Something went wrong while deleting the game! Please try again later.");
+
+                return View(deletedModel);
+            }
         }
     }
 }
