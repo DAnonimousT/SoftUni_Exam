@@ -1,0 +1,31 @@
+@model SoftUni_Exam.ViewModels.News.DetailsNewsViewModel
+
+@{
+    ViewData["Title"] = "News Details";
+}
+
+<h2>@Model.Title</h2>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Type</dt>
+            <dd class="col-sm-9">@Model.Type</dd>
+
+            <dt class="col-sm-3">Author</dt>
+            <dd class="col-sm-9">@Model.Author</dd>
+
+            <dt class="col-sm-3">Published On</dt>
+            <dd class="col-sm-9">@Model.PublishedOn.ToString("dd MMM yyyy HH:mm")</dd>
+
+            <dt class="col-sm-3">Content</dt>
+            <dd class="col-sm-9">@Model.Content</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+    <a asp-action="All" class="btn btn-secondary">Back to List</a>
+</div>
