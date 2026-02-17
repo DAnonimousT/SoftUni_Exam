@@ -82,15 +82,69 @@ namespace SoftUni_Exam.Controllers
             dbContext.SaveChanges();
 
             return RedirectToAction(nameof(All));
-        } 
-
-        private IEnumerable<News> News()
-        {
-            return this.dbContext.News
-                .AsNoTracking()
-                .OrderBy(g => g.Title)
-                .ToArray();
         }
-        
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
+
+            News? news = dbContext.News.FirstOrDefault(n => n.Id == id);
+
+            if (news == null)
+            {
+                return NotFound();
+            }
+            EditNewsInputModel editModel = new EditNewsInputModel
+            {
+                Id = news.Id,
+                Title = news.Title,
+                Content = news.Content,
+                Type = news.Type,
+            };
+            return View(editModel);
+        }
+        [HttpPost]
+        public IActionResult Edit(int id, EditNewsInputModel editModel)
+        {
+            
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
+
+            News? news = dbContext.News.FirstOrDefault(n => n.Id == id);
+
+            if (news == null)
+            {
+                return NotFound();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(editModel);
+            }
+
+            try
+            {
+                news.Id = editModel.Id;
+                news.Title = editModel.Title;
+                news.Content = editModel.Content;
+                news.Type = editModel.Type;
+                
+                dbContext.SaveChanges();
+
+                return RedirectToAction(nameof(Details), new {id});
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);                
+                ModelState.AddModelError(string.Empty, "Something went wrong while editing the game! Please try again later.");
+
+                return View(editModel);
+            }
+
+        }
     }
 }
