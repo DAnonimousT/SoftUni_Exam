@@ -13,6 +13,10 @@ namespace SoftUni_Exam.Controllers
         {
             this.dbContext = dbContext;
         }
+        public IActionResult Index()
+        {
+            return RedirectToAction(nameof(All));
+        }
 
         public IActionResult All()
         {
