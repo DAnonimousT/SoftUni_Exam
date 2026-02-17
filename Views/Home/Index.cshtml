@@ -1,8 +1,94 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model SoftUni_Exam.ViewModels.Home.HomePageViewModel
+
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-4">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Welcome to Impuls</h1>
+        <p class="lead text-muted">Stay up to date with the latest news and competitions.</p>
+    </div>
+
+    <div class="row g-4">
+
+
+        <div class="col-md-6">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0">Latest News</h3>
+                <a asp-controller="News" asp-action="All" class="btn btn-outline-primary btn-sm">
+                    View All
+                </a>
+            </div>
+
+            @if (!Model.LatestNews.Any())
+            {
+                <div class="alert alert-info">No news articles yet.</div>
+            }
+            else
+            {
+                @foreach (var item in Model.LatestNews)
+                {
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="card-title mb-1">@item.Title</h5>
+                                <span class="badge bg-secondary">@item.Type</span>
+                            </div>
+                            <p class="text-muted small mb-2">
+                                By <strong>@item.Author</strong>
+                                &middot;
+                                @item.PublishedOn.ToString("dd MMM yyyy")
+                            </p>
+                            <p class="card-text">
+                                @(item.Content.Length > 120
+                                    ? item.Content.Substring(0, 120) + "..."
+                                    : item.Content)
+                            </p>
+                            <a asp-controller="News" asp-action="Details" asp-route-id="@item.Id"
+                               class="btn btn-sm btn-primary">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0">Competitions</h3>
+                <a asp-controller="Competition" asp-action="Index" class="btn btn-outline-success btn-sm">
+                    View All
+                </a>
+            </div>
+
+            @if (!Model.LatestCompetitions.Any())
+            {
+                <div class="alert alert-info">No competitions yet.</div>
+            }
+            else
+            {
+                @foreach (var item in Model.LatestCompetitions)
+                {
+                    <div class="card mb-3 shadow-sm border-start border-success border-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-1">@item.Name</h5>
+                            <p class="text-muted small mb-2">
+                                @item.StartDate.ToString("dd MMM yyyy")
+                                &ndash;
+                                @item.EndDate.ToString("dd MMM yyyy")
+                            </p>
+                            <p class="card-text">
+                                @(item.Description.Length > 120
+                                    ? item.Description.Substring(0, 120) + "..."
+                                    : item.Description)
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </div>
